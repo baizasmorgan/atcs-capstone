@@ -27,11 +27,11 @@ const App: React.FC = () => {
 
   return (
     <div style={styles.appContainer}>
-      <h1 style={styles.title}>Meal Suggestion App</h1>
+      {/* Text in the top-left corner */}
+      <div style={styles.topLeftText}>Capture an Image for a Meal Suggestion</div>
 
       {!showMealSuggestion ? (
         <>
-          {/* Add space between the title and the camera */}
           <div style={styles.cameraContainer}>
             <Camera onCapture={handleImageCapture} />
           </div>
@@ -39,9 +39,10 @@ const App: React.FC = () => {
         </>
       ) : (
         <>
-          {/* Show the meal suggestion screen after OCR */}
           {ocrText && <MealSuggestion text={ocrText} />}
-          <button onClick={handleRestart}>Capture Another Image</button>
+          <button onClick={handleRestart} style={styles.captureAnotherImageButton}>
+            Capture Another Image
+          </button>
         </>
       )}
     </div>
@@ -58,9 +59,21 @@ const styles: { [key: string]: React.CSSProperties } = {
     height: '100vh', // Full viewport height
     textAlign: 'center',
     padding: '20px',
+    fontFamily: 'Rubik, sans-serif', // Apply Rubik font to the whole app
+    color: '#38444A', // Apply #38444A color to all text in the app
+    position: 'relative', // Make the container relative to position the text
+  },
+  topLeftText: {
+    position: 'absolute',  // Absolute positioning to place it in the top-left
+    top: '20px',           // Space from the top of the container
+    left: '70px',          // Space from the left of the container
+    fontSize: '16px',      // Smaller font size
+    fontWeight: '500',     // Set font weight to bold
+    color: '#38444A',      // Use the same color for consistency
+    fontFamily: 'Rubik, sans-serif', // Ensure the font is Rubik
   },
   title: {
-    marginBottom: '30px', // Space between the title and the camera component
+    marginBottom: '10px', // Space between the title and the camera component
   },
   cameraContainer: {
     display: 'flex',
@@ -68,8 +81,21 @@ const styles: { [key: string]: React.CSSProperties } = {
     alignItems: 'center',      // Center the camera vertically
     flexDirection: 'column',   // Stack elements vertically
     width: '100%',
-    height: '60vh',            // Height of the camera section
-    marginBottom: '20px',      // Add some space below the camera for the buttons
+    height: '50vh',            // Reduced height to take up less space vertically
+    marginTop: '30px',         // Add margin to move the camera field up
+    marginBottom: '20px',      // Add space below the camera for the buttons
+  },
+  captureAnotherImageButton: {
+    backgroundColor: '#38444A', // Set background color of the button to #38444A
+    color: 'white',             // Text color is white
+    fontSize: '18px',           // Set font size for the button text
+    border: '2px solid white',  // White border around the button
+    padding: '10px 20px',       // Padding around the text
+    borderRadius: '25px',       // Slightly rounded corners
+    cursor: 'pointer',          // Pointer cursor on hover
+    fontFamily: 'Rubik, sans-serif', // Apply Rubik font
+    textDecoration: 'none',     // Remove default underline if any
+    transition: 'all 0.3s ease', // Smooth transition for hover effects
   },
 };
 
